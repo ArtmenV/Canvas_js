@@ -1,12 +1,14 @@
 function draw() {
-  var canvas = document.getElementById("canvas");
+  var canvas = document.getElementById("circle");
   if (canvas.getContext) {
-    var context = canvas.getContext("2d");
-
-    context.fillStyle = "rgb(256,0,0)";
-    context.fillRect(15, 10, 55, 50);
-
-    context.fillStyle = "rgba(0, 0, 200, 0.6)";
-    context.fillRect(35, 30, 55, 50);
+    var ctx = canvas.getContext("2d");
+    var X = canvas.width / 2;
+    var Y = canvas.height / 2;
+    var R = 45;
+    ctx.beginPath();
+    ctx.arc(X, Y, R, 0, 2 * Math.PI, false);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#FF0000";
+    ctx.stroke();
   }
 }
