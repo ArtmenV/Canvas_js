@@ -3,8 +3,10 @@ function draw() {
   if (canvas.getContext) {
     var context = canvas.getContext("2d");
 
-    context.fillRect(20, 20, 100, 100);
-    context.clearRect(40, 40, 60, 60);
-    context.strokeRect(45, 45, 50, 50);
+    context.beginPath();
+    context.moveTo(75, 75);
+    context.lineTo(10, 75);
+    context.lineTo(10, 25);
+    context.fill();
   }
 }
