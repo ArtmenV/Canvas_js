@@ -6,9 +6,9 @@ var mouse = {
 
 var selected = false;
 
-const cnv = document.querySelector("#canvas");
-const ctx = cnv.getContext("2d");
-const width = 500,
+var cnv = document.querySelector("#canvas");
+var ctx = cnv.getContext("2d");
+var width = 500,
   height = 300;
 
 cnv.width = width;
@@ -52,6 +52,8 @@ for (i = 0; i < 5; i++) {
 }
 
 setInterval(function() {
+  ctx.clearRect(0, 0, width, height);
+
   for (i in rect) {
     rect[i].draw();
 
@@ -61,6 +63,8 @@ setInterval(function() {
   }
 
   if (selected) {
+    selected.x = mouse.x;
+    selected.y = mouse.y;
     selected.stroke();
   }
 }, 30);
@@ -72,8 +76,17 @@ window.onmousemove = function(e) {
 
 window.onmousedown = function() {
   mouse.down = true;
+  if (!selected) {
+    var i;
+    for (i in rect) {
+      if (isCursorInRect(rect[i])) {
+        selected = rect[i];
+      }
+    }
+  }
 };
 
-window.onmousedown = function() {
+window.onmouseup = function() {
   mouse.down = false;
+  selected = false;
 };
