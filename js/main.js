@@ -1,27 +1,42 @@
-function draw() {
-  var ctx = document.getElementById("myCanvas").getContext("2d");
-  var counter = 0;
-  for (var i = 0; i < 6; i++) {
-    for (var j = 0; j < 6; j++) {
-      //Start from white and goes to black
-      ctx.fillStyle =
-        "rgb(" +
-        Math.floor(255 - 42.5 * i) +
-        "," +
-        Math.floor(255 - 42.5 * i) +
-        "," +
-        Math.floor(255 - 42.5 * j) +
-        ")";
-      ctx.beginPath();
-      if (i === counter && j === counter) {
-        //creates the circles
-        ctx.arc(25 + j * 50, 30 + i * 50, 20, 0, Math.PI * 2, true);
-        ctx.fill();
-        //creates a border around the circles so white one will be vissible
-        ctx.stroke();
-      }
-    }
-    counter++;
+const cnv = document.querySelector("#canvas");
+const ctx = cnv.getContext("2d");
+const width = 500,
+  height = 300;
+
+cnv.width = width;
+cnv.height = height;
+cnv.style.backgroundColor = "#D9FF9E";
+
+ctx.fillStyle = "#985D5D";
+ctx.strokeStyle = "#001EFF";
+ctx.lineWidth = 3;
+
+const Rect = function(x, y, w, h) {
+  this.x = x;
+  this.y = y;
+  this.w = w;
+  this.h = h;
+};
+
+Rect.prototype = {
+  draw: function() {
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  },
+
+  stroke: function() {
+    ctx.strokeRect(this.x, this.y, this.w, this.h);
   }
+};
+
+var i,
+  rect = [];
+for (i = 0; i < 5; i++) {
+  rect.push(new Rect(50 + i * (50 + 20), 50, 50, 50));
 }
-draw();
+
+setInterval(function() {
+  for (i in rect) {
+    rect[i].draw();
+    rect[i].stroke();
+  }
+}, 30);
