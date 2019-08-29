@@ -1,3 +1,11 @@
+var mouse = {
+  x: 0,
+  y: 0,
+  down: false
+};
+
+var selected = false;
+
 const cnv = document.querySelector("#canvas");
 const ctx = cnv.getContext("2d");
 const width = 500,
@@ -28,6 +36,15 @@ Rect.prototype = {
   }
 };
 
+var isCursorInRect = function(rect) {
+  return (
+    mouse.x > rect.x &&
+    mouse.x < rect.x + rect.w &&
+    mouse.y > rect.y &&
+    mouse.y < rect.y + rect.h
+  );
+};
+
 var i,
   rect = [];
 for (i = 0; i < 5; i++) {
@@ -37,6 +54,26 @@ for (i = 0; i < 5; i++) {
 setInterval(function() {
   for (i in rect) {
     rect[i].draw();
-    rect[i].stroke();
+
+    if (isCursorInRect(rect[i])) {
+      rect[i].stroke();
+    }
+  }
+
+  if (selected) {
+    selected.stroke();
   }
 }, 30);
+
+window.onmousemove = function(e) {
+  mouse.x = e.pageX;
+  mouse.y = e.pageY;
+};
+
+window.onmousedown = function() {
+  mouse.down = true;
+};
+
+window.onmousedown = function() {
+  mouse.down = false;
+};
