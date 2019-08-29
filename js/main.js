@@ -1,7 +1,6 @@
 var mouse = {
   x: 0,
-  y: 0,
-  down: false
+  y: 0
 };
 
 var selected = false;
@@ -47,7 +46,7 @@ var isCursorInRect = function(rect) {
 
 var i,
   rect = [];
-for (i = 0; i < 5; i++) {
+for (i = 0; i < 7; i++) {
   rect.push(new Rect(50 + i * (50 + 20), 50, 50, 50));
 }
 
@@ -63,9 +62,8 @@ setInterval(function() {
   }
 
   if (selected) {
-    selected.x = mouse.x;
-    selected.y = mouse.y;
-    selected.stroke();
+    selected.x = mouse.x - selected.w / 2;
+    selected.y = mouse.y - selected.h / 2;
   }
 }, 30);
 
@@ -75,7 +73,6 @@ window.onmousemove = function(e) {
 };
 
 window.onmousedown = function() {
-  mouse.down = true;
   if (!selected) {
     var i;
     for (i in rect) {
@@ -87,6 +84,5 @@ window.onmousedown = function() {
 };
 
 window.onmouseup = function() {
-  mouse.down = false;
   selected = false;
 };
