@@ -1,14 +1,10 @@
 function draw() {
-  var canvas = document.getElementById("circle");
+  var canvas = document.getElementById("canvas");
   if (canvas.getContext) {
-    var ctx = canvas.getContext("2d");
-    var X = canvas.width / 2;
-    var Y = canvas.height / 2;
-    var R = 45;
-    ctx.beginPath();
-    ctx.arc(X, Y, R, 0, 2 * Math.PI, false);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#FF0000";
-    ctx.stroke();
+    var context = canvas.getContext("2d");
+
+    context.fillRect(20, 20, 100, 100);
+    context.clearRect(40, 40, 60, 60);
+    context.strokeRect(45, 45, 50, 50);
   }
 }
